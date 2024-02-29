@@ -7,9 +7,39 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/HomeView.vue')
+      component: HomeView
     },
-   
+    {
+      path: '/:id-:name',
+      name: 'case',
+      props: true,
+      component: () => import('../views/CaseView.vue')
+    },
+    {
+      path: '/upgrade',
+      name: 'upgrade',
+      props: true,
+      component: () => import('../views/UpgradeView.vue')
+    },
+    {
+      path: '/contract',
+      name: 'contract',
+      props: true,
+      component: () => import('../views/ContractView.vue')
+    },
+    {
+      path: '/gift',
+      name: 'gift',
+      props: true,
+      component: () => import('../views/GiftView.vue')
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      props: true,
+      component: () => import('../views/ProfileView.vue')
+    },
+
   ]
 })
 
