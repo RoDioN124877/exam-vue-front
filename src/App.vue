@@ -23,25 +23,31 @@
           </li>
         </ul>
       </nav>
-      <div class="user">
+      <div class="user" v-if="users.activeUser">
         <router-link :to="{ name: 'profile' }" class="avatar">
-          <img :src="activeUser.img" alt="" />
+          <img :src="users.activeUser?.img" alt="" />
         </router-link>
         <div class="user-main">
           <router-link :to="{ name: 'profile' }" class="user-header">
-            <div class="user-name">{{ activeUser.name }}</div>
+            <div class="user-name">{{ users.activeUser?.name }}</div>
           </router-link>
           <div class="user-bottom">
             <div class="money">
-              <div class="cash">{{ activeUser.money }}₸</div>
+              <div class="cash">{{ users.activeUser?.money }}₸</div>
               <div class="bonus">
-                {{ activeUser.bonus }} <img src="/public/header/egida.png" alt="" />
+                {{ users.activeUser?.bonus }} <img src="/public/header/egida.png" alt="" />
               </div>
             </div>
 
-            <div class="exit"><img src="/public/header/exit.png" alt="" /></div>
+            <div @click="users.logOut()" class="exit">
+              <img src="/public/header/exit.png" alt="" />
+            </div>
           </div>
         </div>
+      </div>
+      <div class="action" v-else>
+        <router-link class="log" :to="{ name: 'login' }">Войти</router-link>
+        <router-link class="sig" :to="{ name: 'sigin' }">Зарегаться</router-link>
       </div>
     </header>
 
@@ -51,8 +57,8 @@
 
 <script setup lang="ts">
 import { useUsers } from '@/stores/users'
+
 const users = useUsers()
-const activeUser = users.users.active
 </script>
 
 <style scoped>
@@ -166,5 +172,26 @@ header nav ul li:hover {
 .exit img {
   width: 20px;
 }
+.action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.sig {
+  color: white;
+  border: 1px solid rgb(255, 255, 255);
+  padding: 10px;
+  background-color: rgb(72, 18, 122);
+  margin-right: 10px;
+}
+.log {
+  color: white;
+  background-color: rgb(72, 18, 122);
+  padding: 9px;
+}
+.action a:hover {
+  transition: 0.3s;
+  background-color: rgba(72, 18, 122,0.8);
+}
 </style>
-@/stores/users
