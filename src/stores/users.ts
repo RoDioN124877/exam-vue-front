@@ -8,6 +8,7 @@ interface User {
   money: number;
   bonus: number;
   password: string;
+  loot: any[];
 }
 
 export const useUsers = defineStore('users', () => {
@@ -18,6 +19,7 @@ export const useUsers = defineStore('users', () => {
     money: 2000,
     bonus: 0,
     password: "1",
+    loot: []
   })
   const users = ref<User[]>([
     {
@@ -27,6 +29,7 @@ export const useUsers = defineStore('users', () => {
       money: 2000,
       bonus: 0,
       password: "1",
+      loot: []
     },
     {
       id: 2,
@@ -35,6 +38,7 @@ export const useUsers = defineStore('users', () => {
       money: 2000,
       bonus: 0,
       password: "1",
+      loot: []
     }
   ])
 

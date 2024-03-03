@@ -13,6 +13,7 @@
       </div>
       <button @click="start" class="start">Generate Items</button>
     </div>
+    <button @click="reset()" class="start">Generate Items</button>
 
     <section class="ss">
       <div v-for="skin in skins" :key="skin.id">
@@ -26,8 +27,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, defineProps, nextTick } from 'vue'
+import { onMounted, ref, defineProps } from 'vue'
 import { useCases } from '@/stores/cases'
+import { useUsers } from '@/stores/users'
 
 interface Props {
   id: number
@@ -42,10 +44,12 @@ interface Skin {
 }
 
 const cases = useCases().boxs
+const users = useUsers()
+const active = useUsers().activeUser
 const props = defineProps<Props>()
 const skins = ref<Skin[]>([])
 const generatedItems = ref<Skin[]>([])
-const cells = 31
+const cells = 61
 let isStarted = ref(false)
 let isFirstStart = ref(true)
 const list = ref<any>(null)
@@ -61,32 +65,45 @@ const generateItems = () => {
     generatedItems.value.push(skins.value[chance])
   }
 }
-const start = () => {
+
+const start = async () => {
   if (isStarted.value) return
   else isStarted.value = true
 
-  if (!isFirstStart.value) {
-    generateItems()
-    isStarted.value = false
-  } else isFirstStart.value = false
+  if (!isFirstStart.value) await reset()
+  else isFirstStart.value = false
 
-  if (list.value) {
-    nextTick(() => {
-      list.value.style.left = '50%'
-      list.value.style.transform = 'translate3d(-50%, 0, 0)'
-      const item = list.value.querySelectorAll('li')[15]
-      list.value.addEventListener(
-        'transitionend',
-        () => {
-          isStarted.value = false
-          item.classList.add('active')
-          console.log(item)
-        },
-        { once: true }
-      )
-    })
-  }
+  await startWithTransition()
 }
+
+const reset = async () => {
+  list.value.style.transition = '0s'
+  list.value.style.left = '0px'
+  list.value.style.transform = 'none'
+  const item = list.value.querySelectorAll('li')[30]
+  await item.classList.remove('active')
+  await generateItems()
+}
+
+const startWithTransition = async () => {
+  list.value.style.transition = '5s cubic-bezier(0.21, 0.53, 0.29, 0.99)'
+  list.value.style.left = '50%'
+  list.value.style.transform = 'translate3d(-50%, 0, 0)'
+  const item = list.value.querySelectorAll('li')[30]
+  list.value.addEventListener(
+    'transitionend',
+    () => {
+      item.classList.add('active')
+      users.users
+        .find((item) => item.id === users.activeUser.id)
+        ?.loot.push(generatedItems.value[30])
+
+      isStarted.value = false
+    },
+    { once: true }
+  )
+}
+
 const loadData = async () => {
   try {
     const data = await fetch('http://localhost:8081/')
