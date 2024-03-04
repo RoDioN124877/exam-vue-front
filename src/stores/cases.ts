@@ -32,8 +32,8 @@ export const useCases = defineStore('cases', () => {
             id: 4,
             title: "Support",
             img: "/public/cases/caseFoure.png",
-            price: 1090,
-            bonus: 10,
+            price: 4990,
+            bonus: 499,
             filling: ['Avowance of the Veiled Ones', 'Sylvan Vedette', 'Golden Ripper\'s Reel', 'Desert Burn', 'Vigil Triumph', 'Crimson First of the Flood', 'Frost Avalanche', 'Feast of Abscession', 'Blades of Voth Domosh', 'Bladeform Legacy', 'Tempest Helm of the Thundergod', 'Flockheart\'s Gamble', 'The Magus Cypher', 'Dragonclaw Hook', 'Shadow in the Deep']
         },
         {

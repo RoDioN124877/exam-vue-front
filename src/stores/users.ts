@@ -12,7 +12,7 @@ interface User {
 }
 
 export const useUsers = defineStore('users', () => {
-  const activeUser = ref<User | null>({
+  const activeUser = ref<User | null >({
     id: 1,
     img: "https://i.pinimg.com/564x/a6/f4/ca/a6f4ca53c8d505b3014256de67ccd547.jpg",
     name: 'mode:Ян Брагин',

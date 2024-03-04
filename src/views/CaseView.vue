@@ -11,7 +11,7 @@
           </li>
         </ul>
       </div>
-      <button @click="start" class="start">Generate Items</button>
+      <button @click="start" class="start">{{ cases[props.id - 1].price }}</button>
     </div>
     <button @click="reset()" class="start">Generate Items</button>
 
@@ -20,7 +20,6 @@
         <p>{{ skin.price }}</p>
         <img :src="skin.img" alt="" />
         <p>{{ skin.title }}</p>
-        <p>{{ calculateChance(skin) }}</p>
       </div>
     </section>
   </div>
@@ -67,8 +66,16 @@ const generateItems = () => {
 }
 
 const start = async () => {
+  console.log(users.activeUser?.money)
+
   if (isStarted.value) return
-  else isStarted.value = true
+  else {
+    if (users.activeUser?.money >= cases[props.id - 1].price) {
+      console.log('2')
+      users.activeUser.money = users.activeUser?.money - cases[props.id - 1].price
+    } else return
+    isStarted.value = true
+  }
 
   if (!isFirstStart.value) await reset()
   else isFirstStart.value = false
@@ -94,6 +101,7 @@ const startWithTransition = async () => {
     'transitionend',
     () => {
       item.classList.add('active')
+      users.activeUser.loot.push(generatedItems.value[30])
       users.users
         .find((item) => item.id === users.activeUser.id)
         ?.loot.push(generatedItems.value[30])

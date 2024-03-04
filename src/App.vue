@@ -33,7 +33,7 @@
           </router-link>
           <div class="user-bottom">
             <div class="money">
-              <div class="cash">{{ users.activeUser?.money }}₸</div>
+              <div class="cash">{{ users.activeUser?.money.toFixed(2) }}₸</div>
               <div class="bonus">
                 {{ users.activeUser?.bonus }} <img src="/public/header/egida.png" alt="" />
               </div>
