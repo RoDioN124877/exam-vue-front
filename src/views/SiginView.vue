@@ -25,7 +25,8 @@ const newUser = <any>ref({
   name: '',
   money: 2000,
   bonus: 0,
-  password: ''
+  password: '',
+  loot: []
 })
 
 const reg = () => {

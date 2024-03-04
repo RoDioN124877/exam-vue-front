@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import { useCases } from '@/stores/cases'
 const cases = useCases().boxs
+
 </script>
 
 <style scoped>

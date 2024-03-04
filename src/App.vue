@@ -33,7 +33,7 @@
           </router-link>
           <div class="user-bottom">
             <div class="money">
-              <div class="cash">{{ users.activeUser?.money }}₸</div>
+              <div class="cash">{{ users.activeUser?.money.toFixed(2) }}₸</div>
               <div class="bonus">
                 {{ users.activeUser?.bonus }} <img src="/public/header/egida.png" alt="" />
               </div>
@@ -52,6 +52,11 @@
     </header>
 
     <router-view class="main"></router-view>
+    <footer>
+      <a href="https://www.instagram.com/rodion_ch/">INST</a>
+      <a href="https://t.me/prvboiwww">TG</a>
+      <a href="https://vk.com/rodion124877">VK</a>
+    </footer>
   </div>
 </template>
 
@@ -192,6 +197,6 @@ header nav ul li:hover {
 }
 .action a:hover {
   transition: 0.3s;
-  background-color: rgba(72, 18, 122,0.8);
+  background-color: rgba(72, 18, 122, 0.8);
 }
 </style>
